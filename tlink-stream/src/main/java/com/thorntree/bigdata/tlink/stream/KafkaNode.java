@@ -7,19 +7,13 @@ package com.thorntree.bigdata.tlink.stream;
  */
 public class KafkaNode {
     public Integer id;
-    public String title;
-    public String author;
-    public String price;
-    public String qty;
+    public String name;
 
     public KafkaNode() {
     }
 
-    public KafkaNode(Integer id, String title, String author, String price, String qty) {
+    public KafkaNode(Integer id, String name) {
         this.id = id;
-        this.title = title;
-        this.author = author;
-        this.price = price;
-        this.qty = qty;
+        this.name = name;
     }
 }

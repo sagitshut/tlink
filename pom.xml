@@ -11,6 +11,7 @@
     <modules>
         <module>tlink-stream</module>
         <module>tlink-udf</module>
+        <module>tlink-matedata</module>
     </modules>
 
 
@@ -98,6 +99,18 @@
                 <artifactId>flink-connector-jdbc_2.11</artifactId>
                 <version>${flink.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-state-processor-api_2.11</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-runtime_2.11</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+
 
 
 
