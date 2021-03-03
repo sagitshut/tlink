@@ -11,7 +11,7 @@
     <modules>
         <module>tlink-stream</module>
         <module>tlink-udf</module>
-        <module>tlink-matedata</module>
+        <module>tlink-metadata</module>
     </modules>
 
 
