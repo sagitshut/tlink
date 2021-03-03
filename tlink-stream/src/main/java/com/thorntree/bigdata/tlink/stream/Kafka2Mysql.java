@@ -45,7 +45,7 @@ public class Kafka2Mysql {
         //表示一旦Flink程序被cancel后，会保留checkpoint数据，以便根据实际需要恢复到指定的checkpoint
         env.getCheckpointConfig().enableExternalizedCheckpoints(CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION);
         //设置statebackend,将检查点保存在hdfs上面，默认保存在内存中。这里先保存到本地
-        env.setStateBackend(new FsStateBackend("file:///Users/lxs/mydev/tmp/ck/"));
+        env.setStateBackend(new FsStateBackend("file:///Users/liuxiaoshuai/vdb1/opt/flink_cp/"));
 
         Properties properties = new Properties();
         properties.setProperty("bootstrap.servers", "192.168.3.100:9092,192.168.3.101:9092,192.168.3.102:9092");
@@ -54,40 +54,38 @@ public class Kafka2Mysql {
         //kafka分区自动发现周期
         properties.put(FlinkKafkaConsumerBase.KEY_PARTITION_DISCOVERY_INTERVAL_MILLIS, "3000");
 
+        DataStreamSource<KafkaNode> streamSource = env
+            .addSource(new FlinkKafkaConsumer<>("test_lxs", new KafkaDeserializationSchema<KafkaNode>() {
+                @Override
+                public boolean isEndOfStream(KafkaNode kafkaNode) {
+                    return false;
+                }
 
-        DataStreamSource<KafkaNode> stream = env
-                .addSource(new FlinkKafkaConsumer<>("test_lxs", new KafkaDeserializationSchema<KafkaNode>() {
-                    @Override
-                    public boolean isEndOfStream(KafkaNode kafkaNode) {
-                        return false;
-                    }
+                @Override
+                public KafkaNode deserialize(ConsumerRecord<byte[], byte[]> consumerRecord) throws Exception {
+                    String s = new String(consumerRecord.value(), "UTF-8");
+                    KafkaNode kafkaNode = JSON.parseObject(s, KafkaNode.class);
+                    return kafkaNode;
+                }
 
-                    @Override
-                    public KafkaNode deserialize(ConsumerRecord<byte[], byte[]> consumerRecord) throws Exception {
-                        String s = new String(consumerRecord.value(), "UTF-8");
-                        KafkaNode kafkaNode = JSON.parseObject(s, KafkaNode.class);
-                        return kafkaNode;
-                    }
-
-                    @Override
-                    public TypeInformation<KafkaNode> getProducedType() {
-                        return TypeInformation.of(KafkaNode.class);
-                    }
-                }, properties));
-        stream.map(a->a.name).print();
-        /*stream.addSink(JdbcSink.sink(
-                "insert into canal_log (id, name) values (?,?)",
+                @Override
+                public TypeInformation<KafkaNode> getProducedType() {
+                    return TypeInformation.of(KafkaNode.class);
+                }
+            }, properties));
+        //stream.map(a->a.getName()).print();
+        streamSource.addSink(JdbcSink.sink(
+                "insert into canal_log ( name) values (?)",
                 (ps, t) -> {
-                    ps.setInt(1, t.id);
-                    ps.setString(2, t.name);
+                    ps.setString(1, t.getName());
                 },
-                JdbcExecutionOptions.builder().withBatchSize(3).build(),
+                JdbcExecutionOptions.builder().withBatchSize(1).build(),
                 new JdbcConnectionOptions.JdbcConnectionOptionsBuilder()
                         .withUrl("jdbc:mysql://192.168.3.100:13306/kafka_canal?characterEncoding=UTF-8&allowMultiQueries=true")
                         .withDriverName("com.mysql.cj.jdbc.Driver")
                         .withUsername("root")
-                        .withPassword("r1dd16c1a1980475")
-                        .build()));*/
+                        .withPassword("test")
+                        .build()));
         env.execute();
     }
 }

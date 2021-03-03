@@ -1,19 +1,15 @@
 package com.thorntree.bigdata.tlink.stream;
 
+import lombok.Data;
+
 /**
  * @Author: liuxiaoshuai
  * @Date: 2021/1/22
  * @Description:
  */
+@Data
 public class KafkaNode {
-    public Integer id;
-    public String name;
+    private Integer id;
+    private String name;
 
-    public KafkaNode() {
-    }
-
-    public KafkaNode(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 }

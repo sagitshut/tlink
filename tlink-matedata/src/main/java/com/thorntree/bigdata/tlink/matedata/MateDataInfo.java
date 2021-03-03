@@ -20,12 +20,13 @@ public class MateDataInfo {
 
     public static void main(String[] args) throws Exception{
         ExecutionEnvironment bEnv   = ExecutionEnvironment.getExecutionEnvironment();
-        ExistingSavepoint savepoint = Savepoint.load(bEnv, "/Users/lxs/mydev/tmp/ck/cd04c2fcbae9d316dcf8dfda919c6c70/chk-3/", new MemoryStateBackend());
+        ExistingSavepoint savepoint = Savepoint.load(bEnv, "file:////Users/liuxiaoshuai/vdb1/opt/flink_cp/5779318672dd65ee723b5e0cdfab6f2c/chk-2/", new MemoryStateBackend());
+
         TypeInformation<Tuple2<KafkaTopicPartition, Long>> originalTypeHintTypeInfo =
                 new TypeHint<Tuple2<KafkaTopicPartition, Long>>() {}.getTypeInfo();
 
-        DataSet<Tuple2<KafkaTopicPartition, Long>> tuple2DataSet = savepoint.readUnionState("my-uuid", "topic-partition-offset-states", originalTypeHintTypeInfo);
-        System.out.println(tuple2DataSet);
+        DataSet<Tuple2<KafkaTopicPartition, Long>> tuple2DataSet = savepoint.readUnionState("123", "topic-partition-offset-states", originalTypeHintTypeInfo);
+        tuple2DataSet.print();
     }
 
 }

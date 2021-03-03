@@ -11,7 +11,7 @@ import org.apache.flink.state.api.runtime.SavepointLoader;
 public class MetaDataInfo {
 
     public static void main(String[] args) throws Exception{
-        CheckpointMetadata metadata = SavepointLoader.loadSavepointMetadata("/Users/lxs/mydev/tmp/ck/cd04c2fcbae9d316dcf8dfda919c6c70/chk-3/_metadata");
+        CheckpointMetadata metadata = SavepointLoader.loadSavepointMetadata("/Users/liuxiaoshuai/vdb1/opt/flink_cp/c4a7ca897dec841a1ece18ef8f47a05f/chk-626/_metadata");
         System.out.println(metadata);
     }
 }
