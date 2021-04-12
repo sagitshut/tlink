@@ -13,6 +13,8 @@
         <module>tlink-udf</module>
         <module>tlink-metadata</module>
         <module>tlink-file</module>
+        <module>tlink-format</module>
+        <module>tlink-connector</module>
     </modules>
 
 
@@ -176,7 +178,11 @@
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
             <!-- Junit -->
             <dependency>
                 <groupId>junit</groupId>

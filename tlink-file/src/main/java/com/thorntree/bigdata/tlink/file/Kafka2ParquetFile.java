@@ -1,8 +1,8 @@
 package com.thorntree.bigdata.tlink.file;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.EnvironmentSettings;
-import org.apache.flink.table.api.TableResult;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 
 /**
@@ -10,8 +10,10 @@ import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
  * @Date: 2021/3/17
  * @Description:
  */
+@Slf4j
 public class Kafka2ParquetFile {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args){
+        log.info("start++++++");
         StreamExecutionEnvironment bsEnv = StreamExecutionEnvironment.getExecutionEnvironment();
         EnvironmentSettings bsSettings = EnvironmentSettings.newInstance().useBlinkPlanner().inStreamingMode().build();
         StreamTableEnvironment bsTableEnv = StreamTableEnvironment.create(bsEnv, bsSettings);
@@ -57,6 +59,5 @@ public class Kafka2ParquetFile {
 
         bsTableEnv.executeSql("INSERT INTO products_file SELECT id, name,description, DATE_FORMAT(log_ts, 'yyyy-MM-dd'), DATE_FORMAT(log_ts, 'HH') FROM kafka_table_test");
 
-        bsEnv.execute();
     }
 }

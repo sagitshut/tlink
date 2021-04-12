@@ -5,8 +5,9 @@
             <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%p][%t][%c{0}:%M:%L] %m%n</pattern>
         </encoder>
     </appender>
-    <root level="DEBUG" class="">
+    <root level="DEBUG" class="com.thorntree.bigdata.tlink.file.Kafka2ParquetFile">
         <appender-ref ref="console"/>
     </root>
-    <logger name="com.thorntree.bigdata.tlink" level="ERROR"/>
+    <logger name="com.thorntree.bigdata.tlink.file" level="info"/>
+
 </configuration>
