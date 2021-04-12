@@ -12,6 +12,9 @@
         <module>tlink-stream</module>
         <module>tlink-udf</module>
         <module>tlink-metadata</module>
+        <module>tlink-file</module>
+        <module>tlink-format</module>
+        <module>tlink-connector</module>
     </modules>
 
 
@@ -110,8 +113,17 @@
                 <artifactId>flink-runtime_2.11</artifactId>
                 <version>${flink.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-json</artifactId>
+                <version>1.12.0</version>
+            </dependency>
 
-
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-parquet_2.11</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>mysql</groupId>
@@ -166,7 +178,11 @@
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
             <!-- Junit -->
             <dependency>
                 <groupId>junit</groupId>
