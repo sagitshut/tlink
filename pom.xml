@@ -15,6 +15,7 @@
         <module>tlink-file</module>
         <module>tlink-format</module>
         <module>tlink-connector</module>
+        <module>tlink-cep</module>
     </modules>
 
 
@@ -122,6 +123,12 @@
             <dependency>
                 <groupId>org.apache.flink</groupId>
                 <artifactId>flink-parquet_2.11</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-cep_2.11</artifactId>
                 <version>${flink.version}</version>
             </dependency>
 
